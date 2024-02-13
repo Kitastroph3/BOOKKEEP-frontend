@@ -7,11 +7,13 @@ const BookList = ({ books, handleSaveBook }) => {
         <div className="book-item" key={index}>
           <h3>{book.title}</h3>
           <p>Author: {book.author}</p>
+          <p>Published: {book.published}</p>
           {book.coverImage ? (
             <img src={book.coverImage} alt={book.title} />
           ) : (
             <div className="placeholder">No Cover Image Available</div>
           )}
+          <p>{book.description.value}</p>
           <button onClick={() => handleSaveBook(book)}>Save</button>
         </div>
       ))}
