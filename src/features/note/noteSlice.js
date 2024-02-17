@@ -19,10 +19,19 @@ export const createNote = createAsyncThunk('notes/createNote', async ({ bookId, 
   }
 });
 
+// export const updateNote = createAsyncThunk('notes/updateNote', async ({ noteId, bookId, content }, { getState, rejectWithValue }) => {
+//   try {
+//     const userData = getState().auth.user;
+//     return await updateNoteAPI(noteId, bookId, content, userData);
+//   } catch (error) {
+//     return rejectWithValue(error.message);
+//   }
+// });
 export const updateNote = createAsyncThunk('notes/updateNote', async ({ noteId, bookId, content }, { getState, rejectWithValue }) => {
   try {
     const userData = getState().auth.user; 
-    return await updateNoteAPI(noteId, bookId, content, userData);
+    const updatedNote = await updateNoteAPI(bookId, noteId, content, userData);
+    return { noteId, updatedNote }; // Return both the noteId and updated note
   } catch (error) {
     return rejectWithValue(error.message);
   }
@@ -32,8 +41,7 @@ export const deleteNote = createAsyncThunk(
   'notes/deleteNote', async ({ bookId, noteId }, { getState, rejectWithValue }) => {
   try {
     const userData = getState().auth.user; 
-    await deleteNoteAPI(bookId, noteId, userData); // Corrected parameter usage
-    return noteId;
+    return await deleteNoteAPI(bookId, noteId, userData); // Corrected parameter usage
   } catch (error) {
     return rejectWithValue(error.message);
   }
@@ -79,6 +87,8 @@ const noteSlice = createSlice({
       })
       .addCase(updateNote.fulfilled, (state, action) => {
         state.loading = false;
+        const updatedNote = action.payload;
+        state.notes = state.notes.map(note => note.id === updatedNote.id ? updatedNote : note);
       })
       .addCase(updateNote.rejected, (state, action) => {
         state.loading = false;
