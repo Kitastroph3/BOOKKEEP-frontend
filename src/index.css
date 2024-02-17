@@ -9,7 +9,7 @@
 body {
   font-family: 'Karla', sans-serif;
   height: 100vh;
-  background-color: rgb(48, 50, 50);
+  background-color: #fbfbfb;
 }
 
 a {
@@ -18,7 +18,7 @@ a {
 }
 
 p {
-  line-height: 1.7;
+  line-height: 1.5;
 }
 
 ul {
@@ -38,7 +38,6 @@ h3 {
 
 .container {
   width: 100%;
-  max-width: 960px;
   margin: 0 auto;
   padding: 0 20px;
   text-align: center;
@@ -192,9 +191,19 @@ h3 {
   animation: spin 1.2s linear infinite;
 }
 
+#search {
+  margin-bottom: 20px;
+}
+
+#search>input {
+  height: 30px;
+  width: 300px;
+  padding-left: 10px;
+}
+
 .book-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 20px;
 }
 
@@ -243,9 +252,9 @@ ul {
   padding: 0;
 }
 
-li {
+/* li {
   margin-bottom: 20px;
-}
+} */
 
 img {
   border-radius: 4px;
@@ -280,3 +289,20 @@ img {
     font-size: 1.5rem;
   }
 }
+
+.book-list-layout {
+  display: flex;
+}
+
+.left-panel {
+  flex: 1;
+}
+
+.right-panel {
+  flex: 1;
+}
+
+.bookdesc {
+  word-wrap: break-word;
+}
+

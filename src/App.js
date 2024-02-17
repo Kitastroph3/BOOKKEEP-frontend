@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Searchbar from './components/Searchbar'
 import MyBooksList from './components/MyBooksList';
 import BookNotesPage from './components/BookNotesPage'; // Import the BookNotesPage component
+import NoteDetailPage from './components/NoteDetailPage';
 
 function App() {
   return (
@@ -17,13 +18,14 @@ function App() {
       <Router>
         <div className='container'>
           <Header />
-          <Searchbar />
           <Routes>
               <Route path='/' element={<Dashboard />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path="/books" element={<MyBooksList />} />
-              <Route path="/books/:bookId" element={<BookNotesPage />} /> {/* Route for managing notes */}
+              <Route path="/books/:bookId/notes" element={<BookNotesPage />} /> {/* Route for managing notes */}
+              <Route path="/search" element={<Searchbar />} />
+              <Route path='/books/:bookId/notes/:noteId' element={<NoteDetailPage />} />
           </Routes>
         </div>
       </Router>

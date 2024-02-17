@@ -18,13 +18,6 @@ const Searchbar = () => {
     try {
       const encodedQuery = encodeURIComponent(query);
       const response = await axios.get(`http://openlibrary.org/search.json?title=${encodedQuery}&limit=60`);
-      // const books = response.data.docs.map(book => ({
-      //   title: book.title,
-      //   author: (book.author_name && book.author_name.length > 0) ? book.author_name[0] : 'Unknown',
-      //   coverImage: book.cover_i ? `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : null,
-      //   key: book.key,
-      //   author_key: book.author_key,
-      // }));
       const books = await Promise.all(response.data.docs.map(async book => {
         const bookDataResponse = await axios.get(`http://openlibrary.org${book.key}.json`);
         const bookData = bookDataResponse.data;
@@ -54,7 +47,7 @@ const Searchbar = () => {
 
   return (
     <>
-      <div>
+      <div id="search">
         <input
           type="text"
           value={query}

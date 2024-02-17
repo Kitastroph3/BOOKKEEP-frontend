@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { FaSignInAlt, FaSignOutAlt, FaUser, FaSearch, FaBookmark } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
@@ -16,7 +16,6 @@ const Header = () => {
         navigate('/')
     }
 
-
     return (
         <header className='header'>
         <div className='logo'>
@@ -24,12 +23,23 @@ const Header = () => {
         </div>    
             <ul>
                 {user ? (
-                    <li>
-                        <button className='btn' onClick={logoutFn}>
-                            <FaSignOutAlt /> Logout
-                        </button>    
-                    </li>
-
+                    <>
+                        <li>
+                            <Link to="/books">
+                                <FaBookmark />My Books
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/search" >
+                                <FaSearch /> Search
+                            </Link>
+                        </li>
+                        <li>
+                            <button className='btn' onClick={logoutFn}>
+                                <FaSignOutAlt /> Logout
+                            </button>    
+                        </li>
+                    </>
                 ) : (       
                     <>
                         <li>

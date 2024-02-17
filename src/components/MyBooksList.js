@@ -36,7 +36,7 @@ const MyBooksList = () => {
                 <img src={book.coverImage} alt="Book Cover" style={{ maxWidth: '200px' }} />
               )}
               <button onClick={() => handleDelete(book._id)}>Delete</button>
-              <Link to={`/books/${book._id}`}>Manage Notes</Link> {/* Add Link to BookNotesPage */}
+              <Link to={`/books/${book._id}/notes`}>Manage Notes</Link> {/* Add Link to BookNotesPage */}
             </li>
           ))}
         </ul>

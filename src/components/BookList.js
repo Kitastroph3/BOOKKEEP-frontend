@@ -13,7 +13,7 @@ const BookList = ({ books, handleSaveBook }) => {
           ) : (
             <div className="placeholder">No Cover Image Available</div>
           )}
-          <p>{book.description.value}</p>
+          <p className="bookdesc">{book.description.value}</p>
           <button onClick={() => handleSaveBook(book)}>Save</button>
         </div>
       ))}

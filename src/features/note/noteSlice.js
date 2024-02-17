@@ -19,19 +19,21 @@ export const createNote = createAsyncThunk('notes/createNote', async ({ bookId, 
   }
 });
 
-export const updateNote = createAsyncThunk('notes/updateNote', async ({ noteId, content }, { getState, rejectWithValue }) => {
+export const updateNote = createAsyncThunk('notes/updateNote', async ({ noteId, bookId, content }, { getState, rejectWithValue }) => {
   try {
     const userData = getState().auth.user; 
-    return await updateNoteAPI(noteId, content, userData);
+    return await updateNoteAPI(noteId, bookId, content, userData);
   } catch (error) {
     return rejectWithValue(error.message);
   }
 });
 
-export const deleteNote = createAsyncThunk('notes/deleteNote', async (noteId, { getState, rejectWithValue }) => {
+export const deleteNote = createAsyncThunk(
+  'notes/deleteNote', async ({ bookId, noteId }, { getState, rejectWithValue }) => {
   try {
     const userData = getState().auth.user; 
-    return await deleteNoteAPI(noteId, userData);
+    await deleteNoteAPI(bookId, noteId, userData); // Corrected parameter usage
+    return noteId;
   } catch (error) {
     return rejectWithValue(error.message);
   }
@@ -87,7 +89,7 @@ const noteSlice = createSlice({
         state.error = null;
       })
       .addCase(deleteNote.fulfilled, (state, action) => {
-        state.loading = false;
+        state.notes = state.notes.filter(note => note.id !== action.payload);
       })
       .addCase(deleteNote.rejected, (state, action) => {
         state.loading = false;
