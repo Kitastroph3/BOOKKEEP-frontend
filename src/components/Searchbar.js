@@ -27,7 +27,7 @@ const Searchbar = () => {
           coverImage: book.cover_i ? `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : null,
           key: book.key,
           author_key: book.author_key,
-          description: bookData.description || 'No description available', 
+          description: bookData.description || 'No description available',
           published: book.first_publish_year
         };
       }));

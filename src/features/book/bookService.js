@@ -43,3 +43,16 @@ export const deleteBook = async (bookId, userData) => {
         throw new Error(error.response.data.message);
     }
 };
+
+export const deleteAllnotes = async (bookId, userData) => { 
+    try {
+        const response = await axios.delete(`${API_URL}/${bookId}/notes`, {
+            headers: {
+                Authorization: `Bearer ${userData.token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response.data.message);
+    }
+}

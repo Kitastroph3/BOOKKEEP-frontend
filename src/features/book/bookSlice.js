@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchBooks, saveBook as saveBookAPI, deleteBook as deleteBookAPI } from './bookService';
+import { fetchBooks, saveBook as saveBookAPI, deleteBook as deleteBookAPI, deleteAllnotes } from './bookService';
 
 // Async thunk to fetch all books
 export const fetchAllBooks = createAsyncThunk('books/fetchAll', async (_, { rejectWithValue, getState }) => {
@@ -21,11 +21,13 @@ export const saveBook = createAsyncThunk('books/save', async (bookData, { reject
   }
 });
 
-// Async thunk to delete a book
+// Async thunk to delete a book and notes
 export const deleteBook = createAsyncThunk('books/delete', async (bookId, { rejectWithValue, getState }) => {
   try {
     const userData = getState().auth.user; // Get user data from the state
-    return await deleteBookAPI(bookId, userData);
+    await deleteBookAPI(bookId, userData);
+    await deleteAllnotes(bookId, userData);
+    return { bookId };
   } catch (error) {
     return rejectWithValue(error.message);
   }
