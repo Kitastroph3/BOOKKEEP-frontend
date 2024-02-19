@@ -11,13 +11,17 @@ import Searchbar from './components/Searchbar'
 import MyBooksList from './components/MyBooksList';
 import BookNotesPage from './components/BookNotesPage'; // Import the BookNotesPage component
 import NoteDetailPage from './components/NoteDetailPage';
+import MobileHeader from './components/MobileHeader';
+import { useMediaQuery } from 'react-responsive'
 
 function App() {
+  const isMobile = useMediaQuery({ maxWidth: 600 });
+
   return (
     <>
       <Router>
+        {isMobile ? <MobileHeader /> : <Header />}
         <div className='container'>
-          <Header />
           <Routes>
               <Route path='/' element={<Dashboard />} />
               <Route path='/login' element={<Login />} />

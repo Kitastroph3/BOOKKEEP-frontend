@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { saveBook } from '../features/book/bookSlice';
 import BookList from './BookList';
+import Spinner from './Spinner';
 
 const Searchbar = () => {
   const dispatch = useDispatch();
@@ -58,9 +59,14 @@ const Searchbar = () => {
       </div>
 
       <div>
-        {loading && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
-        <BookList books={searchResults} handleSaveBook={handleSaveBook} />
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            {error && <p>Error: {error}</p>}
+            <BookList books={searchResults} handleSaveBook={handleSaveBook} />
+          </>
+        )}
       </div>
     </>
   );

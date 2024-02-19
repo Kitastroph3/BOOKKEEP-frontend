@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllBooks, deleteBook } from '../features/book/bookSlice';
 import { Link } from 'react-router-dom'; // Import Link from React Router
+import Spinner from './Spinner';
 
 const MyBooksList = () => {
   const dispatch = useDispatch();
@@ -13,8 +14,12 @@ const MyBooksList = () => {
 
   const handleDelete = async (bookId) => {
     try {
-      await dispatch(deleteBook(bookId));
-      window.location.reload(); // Refresh the page after successful deletion
+      // Show confirmation toast
+      const confirm = window.confirm('Are you sure you want to delete this book?');
+      if (confirm) {
+        await dispatch(deleteBook(bookId));
+        window.location.reload(); // Refresh the page after successful deletion
+      }
     } catch (error) {
       console.error('Error deleting book:', error);
     }
@@ -23,23 +28,35 @@ const MyBooksList = () => {
   return (
     <div>
       <h1>My Books</h1>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {books.length === 0 && <p>No books found.</p>}
-      {books.length > 0 && (
-        <ul>
-          {books.map((book) => (
-            <li key={book._id}>
-              <h3>{book.title}</h3>
-              <p>Author: {book.author}</p>
-              {book.coverImage && (
-                <img src={book.coverImage} alt="Book Cover" style={{ maxWidth: '200px' }} />
-              )}
-              <button onClick={() => handleDelete(book._id)}>Delete</button>
-              <Link to={`/books/${book._id}/notes`}>Manage Notes</Link> {/* Add Link to BookNotesPage */}
-            </li>
-          ))}
-        </ul>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {error && <p>Error: {error}</p>}
+          {books.length === 0 && <p>No books found.</p>}
+          {books.length > 0 && (
+            <div className='book-list'>
+              {books.map((book) => (
+                <div className='book-item' key={book._id}>
+                  <h3 className='title'>{book.title}</h3>
+                  <p className='title'>Author: {book.author}</p>
+                  {book.coverImage && (
+                    <div>
+                      <img src={book.coverImage} alt="Book Cover" style={{ maxWidth: '200px' }} />
+                    </div>
+                  )}
+                  {/* <p>{ book.desc }</p> */}
+                                    <div>
+                  <button className='wdthbtns' onClick={() => handleDelete(book._id)}>Delete</button>
+                  </div>
+                  <button className='wdthbtns'>
+                    <Link to={`/books/${book._id}/notes`} className='manage'>Manage Notes</Link> {/* Add Link to BookNotesPage */}
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

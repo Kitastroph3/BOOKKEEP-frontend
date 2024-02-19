@@ -5,7 +5,7 @@ const API_URL = '/api/books';
 // Function to save a book with user data
 export const saveBook = async (bookData, userData) => {
     try {
-        const response = await axios.post(API_URL, { ...bookData, userId: userData.id, key: bookData.key, coverImage: bookData.coverImage }, {
+        const response = await axios.post(API_URL, { ...bookData, userId: userData.id, desc: bookData.desc, key: bookData.key, coverImage: bookData.coverImage }, {
             headers: {
                 Authorization: `Bearer ${userData.token}` // Include the user's token in the request headers
             }

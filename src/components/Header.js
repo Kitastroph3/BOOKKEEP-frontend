@@ -3,7 +3,7 @@ import { FaSignInAlt, FaSignOutAlt, FaUser, FaSearch, FaBookmark } from 'react-i
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
-
+import logo from '../downloads/logo.png'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -19,7 +19,9 @@ const Header = () => {
     return (
         <header className='header'>
         <div className='logo'>
-            <Link to="/">Bookkeep</Link>
+            <Link to="/">
+                <img src={ logo } alt="BookKeep" id="logo" />
+            </Link>
         </div>    
             <ul>
                 {user ? (
