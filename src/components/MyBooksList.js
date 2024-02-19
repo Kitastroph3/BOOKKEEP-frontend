@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllBooks, deleteBook } from '../features/book/bookSlice';
-import { Link } from 'react-router-dom'; // Import Link from React Router
+import { Link } from 'react-router-dom'; 
 import Spinner from './Spinner';
 
 const MyBooksList = () => {
@@ -14,11 +14,10 @@ const MyBooksList = () => {
 
   const handleDelete = async (bookId) => {
     try {
-      // Show confirmation toast
       const confirm = window.confirm('Are you sure you want to delete this book?');
       if (confirm) {
         await dispatch(deleteBook(bookId));
-        window.location.reload(); // Refresh the page after successful deletion
+        window.location.reload(); 
       }
     } catch (error) {
       console.error('Error deleting book:', error);
@@ -46,12 +45,12 @@ const MyBooksList = () => {
                     </div>
                   )}
                   {/* <p>{ book.desc }</p> */}
-                                    <div>
-                  <button className='wdthbtns' onClick={() => handleDelete(book._id)}>Delete</button>
+                  <div>  
+                    <button className='wdthbtns'>
+                      <Link to={`/books/${book._id}/notes`} className='manage'>Manage Notes</Link> {/* Add Link to BookNotesPage */}
+                    </button> 
+                    <button className='wdthbtns' onClick={() => handleDelete(book._id)}>Delete</button>
                   </div>
-                  <button className='wdthbtns'>
-                    <Link to={`/books/${book._id}/notes`} className='manage'>Manage Notes</Link> {/* Add Link to BookNotesPage */}
-                  </button>
                 </div>
               ))}
             </div>

@@ -300,6 +300,7 @@ h1:hover {
 
 .book-item .placeholder {
   color: #828282;
+  margin-top: 15px;
 }
 
 .myBook{
@@ -310,6 +311,8 @@ h1:hover {
 .noteForm {
   display: grid;
   margin-bottom: 30px;
+  align-items: center;
+  justify-content: center;
 }
 
 .noteFormText {
@@ -431,7 +434,7 @@ img {
 
   .myBook {
     max-width: 360px;
-    min-width: 340px;
+    min-width: 250px;
   }  
 
 }

@@ -12,15 +12,6 @@ export const fetchAllBooks = createAsyncThunk('books/fetchAll', async (_, { reje
 });
 
 // Async thunk to save a book
-// export const saveBook = createAsyncThunk('books/save', async (bookData, { rejectWithValue, getState }) => {
-//   try {
-//     const userData = getState().auth.user; // Get user data from the state
-//     return await saveBookAPI(bookData, userData);
-//   } catch (error) {
-//     return rejectWithValue(error.message);
-//   }
-// });
-
 export const saveBook = createAsyncThunk('books/save', async (bookData, { rejectWithValue, getState }) => {
   try {
     const userData = getState().auth.user;

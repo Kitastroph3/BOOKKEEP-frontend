@@ -20,33 +20,40 @@ const NoteDetailPage = () => {
 
   const handleNoteUpdate = () => {
     dispatch(updateNote({ bookId, noteId, content: noteContent }))
+      .then(() => {
+        window.location.href = `/books/${bookId}/notes`;
+      })
       .catch((error) => {
         console.error('Failed to update note:', error);
-        // Handle error here, such as displaying a toast message
       });
   };
 
   const handleNoteDelete = () => {
     if (window.confirm('Are you sure you want to delete this note?')) {
       dispatch(deleteNote({ noteId, bookId }))
+        .then(() => {
+          window.location.href = `/books/${bookId}/notes`;
+        })
         .catch((error) => {
           console.error('Failed to delete note:', error);
-          // Handle error here, such as displaying a toast message
         });
     }
   };
 
   return (
     <div>
-      <h2>Note Detail</h2>
-      <textarea
-        value={noteContent}
-        onChange={(e) => setNoteContent(e.target.value)}
-        placeholder="Enter your note here..."
-        required
-      />
-      <button onClick={handleNoteUpdate}>Update Note</button>
-      <button onClick={handleNoteDelete}>Delete Note</button>
+      <h1>Edit Note</h1>
+      <div className='noteForm'>
+        <textarea
+          className='noteFormText'    
+          value={noteContent}
+          onChange={(e) => setNoteContent(e.target.value)}
+          placeholder="Enter your note here..."
+          required
+        />
+          <button onClick={handleNoteUpdate}>Update Note</button>
+          <button onClick={handleNoteDelete}>Delete Note</button>
+      </div>
     </div>
   );
 };

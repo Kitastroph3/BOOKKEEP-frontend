@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNotes, createNote, deleteNote } from '../features/note/noteSlice';
+import { fetchNotes, createNote } from '../features/note/noteSlice';
 import { Link, useParams } from 'react-router-dom';
 import Spinner from './Spinner'
+import { fetchAllBooks } from '../features/book/bookSlice';
 
 const BookNotesPage = () => {
   const { bookId } = useParams();
@@ -10,12 +11,13 @@ const BookNotesPage = () => {
   const { loading, notes, bookInfo } = useSelector((state) => ({
     loading: state.notes.loading,
     notes: state.notes.notes,
-    bookInfo: state.books.books.find(book => book._id === bookId) // Assuming you have access to books in your Redux store
+    bookInfo: state.books.books.find(book => book._id === bookId) 
   }));
   const isLoading = loading || !notes;
 
   useEffect(() => {
     dispatch(fetchNotes(bookId));
+    dispatch(fetchAllBooks(bookId));
   }, [dispatch, bookId]);
 
   const [noteContent, setNoteContent] = useState('');
@@ -31,9 +33,9 @@ const BookNotesPage = () => {
       });
   };
 
-  const handleNoteDelete = (noteId) => {
-    dispatch(deleteNote({ bookId, noteId }));
-  };
+  // const handleNoteDelete = (noteId) => {
+  //   dispatch(deleteNote({ bookId, noteId }));
+  // };
 
   return (
     <div>
@@ -71,7 +73,6 @@ const BookNotesPage = () => {
                       <button className='noteActionBtns'>
                         <Link to={`/books/${bookId}/notes/${note._id}`} className='manage'>Edit</Link>
                       </button>
-                      {/* <button className="noteActionBtns" onClick={() => handleNoteDelete(note._id)}>Delete</button> */}
                     </div>
                   ))}
                 </div>
