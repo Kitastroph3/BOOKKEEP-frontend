@@ -38,9 +38,11 @@ const Login = () => {
         isLoading ? <Spinner /> : (
         <>
             <section className="heading">
-                <h1><FaSignInAlt /> Login</h1>
-                <p>Login and start finding books</p>
+                <h2 style={{ display: "flex", alignItems: "center", justifyContent: "center"}}><FaSignInAlt style={{marginRight:"10px"}} /> Login</h2>
             </section>
+            
+            <h2 style={{marginBottom:"20px"}}>Login and start finding books</h2>
+
             <section className="form">
                 <form onSubmit={onSubmit}>
                     <div className="form-group">

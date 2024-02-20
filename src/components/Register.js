@@ -43,9 +43,11 @@ const Register = () => {
         isLoading ? <Spinner /> : (
         <>
             <section className='heading'>
-                <h1><FaUser />Register</h1>
-                <p>Create an Account</p>
+                <h2 style={{ display: "flex", alignItems: "center", justifyContent: "center" }}><FaUser style={{marginRight: "10px"}}/>Register</h2>
             </section>
+            
+            <h2 style={{marginBottom:"20px"}}>Create an Account</h2>
+
             <section className='form'>
                 <form onSubmit={onSubmit}>
                     <div className="form-group">
